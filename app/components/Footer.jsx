@@ -11,7 +11,7 @@ export default function Footer() {
           <Link href="/">
           {/* <h1 className="text-white text-2xl font-bold">Bidaaanga Lerro</h1> */}
             <Image
-              src="/Bid Leo.png"
+              src="/bid Leo.png"
               alt="logo"
               width={80}
               height={150}
