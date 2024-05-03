@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.banner-1 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url(/sales/sale4.jpg);
+  background-size: cover;
+  transition-duration: 1s;
+}
+
+.banner-1:hover {
+  background-position: bottom;
+}
+
+.banner-2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url(/sales/sale5.jpg);
+  background-size: cover;
+  transition-duration: 1s;
+}
+
+.banner-2:hover {
+  background-position: bottom;
+}
+
+.banner-3 {
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+    url(/sales/sale2.jpg);
+  background-size: cover;
+  /* background-position: center; */
+  transition-duration: 1s;
+}
+
+.banner-3:hover {
+  background-position: center;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.tabs {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.tabs .tab-list {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.tabs .tab {
+  padding: 10px 20px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.tabs .tab.active {
+  border-bottom-color: #007bff;
+}
+
+.tabs .tab-panels {
+  background-color: #fff;
+  padding: 20px;
+}
