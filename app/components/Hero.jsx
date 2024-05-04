@@ -16,7 +16,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <>
-      <section className="bg-blue-50 bg-opacity-20">
+      <section className="bg-blue-50 bg-opacity-20" id="Hero">
         <div className="container mx-auto  px-4 pb-16 mb-20 md:mb-0">
           <div className="flex flex-wrap -mx-4 md:mt-10">
             <div className="w-full lg:w-8/12 px-4 mb-6 lg:mb-0">

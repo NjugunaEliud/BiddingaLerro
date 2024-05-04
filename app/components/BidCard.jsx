@@ -86,7 +86,8 @@ export default function BidCard({ product }) {
 
           <Link
             class="block px-6 mt-2 mb-2 group"
-            href={`/shop/${product.product_id}`}
+            // href={`/shop/${product.product_id}`}
+            href={"#"}
           >
             <div className="h-64 relative">
               <Image
@@ -111,8 +112,10 @@ export default function BidCard({ product }) {
             <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-full text-blue-400 bg-white">
               ACTIVE
             </span>
-
-            <Link
+            <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-lg text-blue-400 bg-white ml-2 flex items-center justify-center">
+              Dial *272*15# and follow the prompts
+            </span>
+            {/* <Link
               class="transition ease-in-out  duration-150 ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500 hover:scale-110"
               href={`/shop/${product.product_id}`}
             >
@@ -133,7 +136,7 @@ export default function BidCard({ product }) {
                   fill="#161616"
                 ></rect>
               </svg>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

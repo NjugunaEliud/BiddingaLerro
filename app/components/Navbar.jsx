@@ -56,6 +56,15 @@ function NavBar() {
           <Image src="/Bidaanga Lerro.jpg" alt="logo" width={70} height={150} />
         </Link>
 
+        <div className="flex justify-between cursor-pointer text-gray-900 font-semibold">
+          <div className="hidden sm:flex">
+            <Link href="#Hero" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Home</Link>
+            <Link href="#live" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Live auctions</Link>
+            <Link href="#contact" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Contact us</Link>
+            <Link href="#" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Faq</Link>
+          </div>
+        </div>
+
         {/* Search Bar */}
         <div className="hidden lg:flex items-center">
           <div className="relative  ">
@@ -80,7 +89,7 @@ function NavBar() {
               className="text-gray-700 focus:outline-none"
             >
               <svg
-              
+
                 width="18"
                 height="18"
                 viewBox="0 0 18 18"
@@ -111,13 +120,13 @@ function NavBar() {
           <div className="bg-white text-black h-screen w-64 fixed top-0 left-0 transform transition-transform ease-in-out duration-300 translate-x-0">
             <div className="flex justify-between items-center p-4">
               <Link href="/">
-                {/* <Image
-                  src="/logo-dark.png"
+                <Image
+                  src="/bid leo.png"
                   alt="logo"
                   width={150}
                   height={150}
-                /> */}
-                Bidaaanga Lerro
+                />
+                {/* Bid Leo */}
               </Link>
               <button
                 onClick={toggleDrawer}
@@ -141,8 +150,17 @@ function NavBar() {
             </div>
 
             <div className="px-4 py-6 ">
-              <Link href="/" className="block my-3 font-bold border-b-2">
+              <Link href="#" className="block my-3 font-bold border-b-2">
                 Home
+              </Link>
+              <Link href="#" className="block my-3 font-bold border-b-2">
+                Live auctions
+              </Link>
+              <Link href="#" className="block my-3 font-bold border-b-2">
+              Contact us
+              </Link>
+              <Link href="#" className="block my-3 font-bold border-b-2">
+                Faq
               </Link>
             </div>
           </div>

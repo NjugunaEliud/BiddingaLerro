@@ -57,7 +57,6 @@ export default function Footer() {
               />
             </a>
           </div>
-
           <p class="text-gray-900 md:mt-0 mt-4">© {currentYear} All Rights Reserved  ,Msimbo Dev Hub </p>
         </div>
       </div>

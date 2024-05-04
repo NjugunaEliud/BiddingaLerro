@@ -32,7 +32,7 @@ export default function BidProduct() {
 
   return (
     <>
-      <section className="md:py-5 bg-gray-100">
+      <section className="md:py-5 bg-gray-100" id="live">
         <div className="container mx-auto px-4">
           <h2 className="mt-6 mb-8 text-4xl md:text-5xl lg:text-6xl font-bold font-heading">
             <span className="text-gray-900 ">Live </span>

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Contact() {
   return (
-    <section class="relative py-20 md:py-32 overflow-hidden bg-yellow-500">
+    <section class="relative py-20 md:py-32 overflow-hidden bg-yellow-500" id="contact">
       <img
         class="absolute top-0 right-0 -mt-24"
         src="/light-orange-right.png"
