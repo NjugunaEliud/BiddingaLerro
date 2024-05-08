@@ -9,7 +9,7 @@ export default function Footer() {
       <div class="container mx-auto px-4">
         <div class="mt-2 text-center md:flex justify-between items-center">
           <Link href="/">
-          {/* <h1 className="text-white text-2xl font-bold">Bidaaanga Lerro</h1> */}
+            {/* <h1 className="text-white text-2xl font-bold">Bidaaanga Lerro</h1> */}
             <Image
               src="/bid Leo.png"
               alt="logo"
@@ -56,6 +56,16 @@ export default function Footer() {
                 objectFit="contain"
               />
             </a>
+          </div>
+          <div class="flex items-center justify-center md:mt-0 mt-5">
+            <div  className="flex flex-col">
+            <p class="text-gray-900 md:mt-0 mt-4">Quick links</p>
+            <div className="flex flex-col">
+              <Link href="#contact" >Contact us</Link>
+              <Link href="#" >Faq</Link>
+              <Link href="#" >Terms and condition</Link>
+            </div>
+            </div>
           </div>
           <p class="text-gray-900 md:mt-0 mt-4">© {currentYear} All Rights Reserved  ,Msimbo Dev Hub </p>
         </div>

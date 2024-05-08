@@ -58,10 +58,14 @@ function NavBar() {
 
         <div className="flex justify-between cursor-pointer text-gray-900 font-semibold">
           <div className="hidden sm:flex">
-            <Link href="#Hero" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Home</Link>
-            <Link href="#live" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Live auctions</Link>
-            <Link href="#contact" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Contact us</Link>
-            <Link href="#" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Faq</Link>
+            <Link href="/home" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Home</Link>
+            <Link href="/home" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Live auctions</Link>
+            {/* <Link href="#contact" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Contact us</Link> */}
+            {/* <Link href="#" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Faq</Link> */}
+            {/* <Link href="#" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Terms and condition</Link> */}
+            <Link href="/allbidders" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Bidders</Link>
+            <Link href="/top5unique" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Top 5 Bidders</Link>
+            <Link href="/winners" className="m-2 p-2 hover:bg-yellow-500 hover:rounded-md hover:text-white hover:m-2">Winners</Link>
           </div>
         </div>
 
@@ -150,17 +154,20 @@ function NavBar() {
             </div>
 
             <div className="px-4 py-6 ">
-              <Link href="#" className="block my-3 font-bold border-b-2">
+              <Link href="/home" className="block my-3 font-bold border-b-2">
                 Home
               </Link>
-              <Link href="#" className="block my-3 font-bold border-b-2">
+              <Link href="/home" className="block my-3 font-bold border-b-2">
                 Live auctions
               </Link>
-              <Link href="#" className="block my-3 font-bold border-b-2">
-              Contact us
+              <Link href="/allbidders" className="block my-3 font-bold border-b-2">
+               Bidders
               </Link>
-              <Link href="#" className="block my-3 font-bold border-b-2">
-                Faq
+              <Link href="/top5unique" className="block my-3 font-bold border-b-2">
+               Top 5 unique
+              </Link>
+              <Link href="/winners" className="block my-3 font-bold border-b-2">
+               Winners
               </Link>
             </div>
           </div>
