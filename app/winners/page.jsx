@@ -25,10 +25,10 @@ export default function Winner() {
     return (
         <>
         <NavBar />
-        <div className='bg-gray-900 mt-2'>
-            <p className=' text-5xl text-yellow-500 font-semibold text-center'>Winners</p>
+        <div className='bg-yellow-500 h-screen mt-2'>
+            <p className=' text-5xl text-gray-900 font-semibold text-center'>Winners</p>
             {loading ? (
-                <p className='text-center text-white font-semibold'>Loading...</p>
+                <p className='text-center mt-24 text-white font-semibold'>Loading...</p>
             ) : (
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-white'>
                     {winners.map((winner, index) => (

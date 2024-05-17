@@ -38,10 +38,10 @@ export default function Top5Unique() {
     return (
         <>
         <NavBar />
-        <div className='bg-gray-900 mt-2'>
-            <p className='text-5xl text-white font-semibold text-center'>Top 5 <span className='text-yellow-500'> Unique Bidders</span> </p>
+        <div className='bg-yellow-500 h-screen mt-2'>
+            <p className='text-5xl text-white font-semibold text-center'>Top 5 <span className='text-gray-900'> Unique Bidders</span> </p>
             {loading ? (
-                <p className='text-white text-center font-semibold'>Loading...</p>
+                <p className='text-white text-center font-semibold mt-24'>Loading...</p>
             ) : (
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4'>
                     {Object.keys(uniqueBiddersByProduct).map((productId, index) => (

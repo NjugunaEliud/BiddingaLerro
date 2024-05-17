@@ -36,10 +36,10 @@ export default function AllBidders() {
     return (
         <>
         <NavBar />
-        <div className='bg-gray-900 mb-10'>
-            <p className='text-5xl text-white font-semibold text-center'>All <span className='text-yellow-500'>Bidders</span> </p>
+        <div className='bg-yellow-500 mb-10 h-screen'>
+            <p className='text-5xl  text-white font-semibold text-center'>All <span className='text-gray-900'>Bidders</span> </p>
             {loading ? (
-                <p className='text-white text-center font-semibold'>Loading...</p>
+                <p className='text-white text-center font-semibold mt-24'>Loading...</p>
             ) : (
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {Object.keys(biddersByProduct).map((productName, index) => (
