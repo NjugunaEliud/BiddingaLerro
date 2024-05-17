@@ -57,7 +57,7 @@ export default function Top5Unique() {
                 </div>
             )}
         </div>
-        
+        <Footer />
         </>
     );
 }

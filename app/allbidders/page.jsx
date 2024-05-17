@@ -2,6 +2,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function AllBidders() {
     const [biddersByProduct, setBiddersByProduct] = useState({});
@@ -56,6 +57,7 @@ export default function AllBidders() {
                 </div>
             )}
         </div>
+        <Footer />
         </>
     );
 }

@@ -2,6 +2,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function Winner() {
     const [winners, setWinners] = useState([]);
@@ -43,6 +44,7 @@ export default function Winner() {
                 </div>
             )}
         </div>
+        <Footer />
         </>
     );
 }
