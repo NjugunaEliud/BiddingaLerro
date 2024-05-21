@@ -16,13 +16,13 @@ export default function BidProduct() {
       {}
     )
       .then((res) => {
-        console.log("GEtting Products DATA From::", res);
-        const filteredProducts = res.data.products.filter(
-          (product) => product.type === "bidding"
-        );
-
+        console.log("GEtting Products DATA From::", res.data.products);
+        // const filteredProducts = res.data.products.filter(
+        //   (product) => product.type === "bidding"
+        // );
+        const auctionProducts = 
         setLoading(true);
-        setProducts(filteredProducts);
+        setProducts(res.data.products);
       })
       .catch((err) => {
         // setLoading(false);

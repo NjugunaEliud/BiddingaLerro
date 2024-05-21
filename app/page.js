@@ -15,9 +15,9 @@ export default function Home() {
       {/* <ALLbidders />
       <Top5Unique />
       <Winner /> */}
+      <Hero />
       <BidProduct />
-      {/* <Hero /> */}
-      <Banner />
+      {/* <Banner /> */}
       <Contact />
       <Footer />
       {/* <ScrollToTopButton /> */}

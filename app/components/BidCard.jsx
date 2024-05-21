@@ -86,13 +86,13 @@ export default function BidCard({ product }) {
 
           <Link
             class="block px-6 mt-2 mb-2 group"
-            // href={`/shop/${product.product_id}`}
-            href={"#"}
+            href={`/shop/${product.product_id}`}
+          // href={"#"}
           >
-            <div className="h-64 relative">
+            <div className="h-36 relative">
               <Image
                 class=" transition ease-in-out  duration-150 mx-auto h-64  w-full  group-hover:scale-110"
-                src={product.image_uri}
+                src={product.product_uri}
                 fill
                 objectFit="contain"
                 alt="product"
@@ -100,26 +100,32 @@ export default function BidCard({ product }) {
             </div>
 
             <h3 class="mb-2 text-xl font-bold font-heading capitalize group-hover:text-gray-500">
-              {product.name}
+              {product.auction_name}
             </h3>
             <p class="transition ease-in-out  duration-150 text-lg font-bold font-heading text-blue-500 group-hover:text-blue-400">
               <span>
-                {product.cost} <span className="text-gray-700">UGX</span>
+                {product.product_price} <span className="text-gray-700">UGX</span>
               </span>
             </p>
           </Link>
-          <div className="flex items-center justify-center">
-            <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-full text-blue-400 bg-white">
-              ACTIVE
-            </span>
-            <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-lg text-blue-400 bg-white ml-2 flex items-center justify-center">
-              Dial *272*15# and follow the prompts
-            </span>
-            {/* <Link
-              class="transition ease-in-out  duration-150 ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500 hover:scale-110"
-              href={`/shop/${product.product_id}`}
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex items-center justify-center">
+              <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-full text-blue-400 bg-white">
+                ACTIVE
+              </span>
+              <span class="px-2 py-1 text-xs font-bold font-heading border-2 border-blue-400 rounded-lg text-blue-400 bg-white ml-2 flex items-center justify-center">
+                {/* Dial *272*15# and follow the prompts */}
+                Dial *284*250#
+              </span>
+            </div>
+            <div className="flex items-center justify-center">
+            <span>
+            <Link
+              // class="transition ease-in-out  duration-150 px-2 py-1 ml-2 flex items-center justify-center w-12 h-12 border rounded-lg text-blue-400 hover:border-gray-500 hover:scale-110"
+            
+              href={`/shop/${product.auction_id}`}
             >
-              <svg
+              {/* <svg
                 width="12"
                 height="12"
                 viewBox="0 0 12 12"
@@ -135,8 +141,11 @@ export default function BidCard({ product }) {
                   transform="rotate(90 12 5)"
                   fill="#161616"
                 ></rect>
-              </svg>
-            </Link> */}
+              </svg> */}
+              <button class="flex items-center justify-center mt-6 bg-yellow-500 text-white p-2 rounded-md">Submit a bid</button>
+            </Link>
+            </span>
+            </div>
           </div>
         </div>
       </div>

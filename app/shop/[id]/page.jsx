@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 export default function page({ params }) {
-  // console.log(params.id);
+  // console.log("Paams uid",params.id);
 
   const [product, setProduct] = useState([]);
 
@@ -25,7 +25,12 @@ export default function page({ params }) {
 
   const MySwal = withReactContent(Swal);
 
-  const [telephone, setTelephone] = useState("");
+  const [phoneNumber, setTelephone] = useState("");
+  const [bidamount, setBidAmount] = useState("");
+  const [name, setName] = useState("");
+  const auction_id = params.id
+
+  const [iframeUrl, setIframeUrl] = useState('');
 
   useEffect(() => {
     setTelephone(localStorage.getItem("userBidMobile"));
@@ -47,25 +52,42 @@ export default function page({ params }) {
       });
   }, []);
 
-  const bidProduct = () => {
+  const bidProduct = (e) => {
+    e.preventDefault();
+
+    const termsCheckbox = document.getElementById('terms');
+    if (!termsCheckbox.checked) {
+      MySwal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "You must agree to the terms and conditions to proceed.",
+      });
+      return;
+    }
+
     setLoading(true);
 
     Axios.post(
-      "https://us-central1-bidleo-398811.cloudfunctions.net/make_bid",
+      "https://us-central1-bidleo-398811.cloudfunctions.net/make_payment_bid",
       {
-        product_id: params.id,
-        mobile_no: telephone,
+        auction_id: auction_id,
+        phoneNumber: phoneNumber,
+        bidamount: bidamount,
+        name: name
       }
     )
       .then((response) => {
-        console.log("Adding data to Bid From::", response);
+
+        console.log("Adding data to Bid From::", response.data);
+        setIframeUrl(response.data);
 
         setLoading(false);
         MySwal.fire({
           position: "center",
           icon: "success",
-          title: " Product Added To Bid",
-          text: "Successfully",
+          title: "Make payment",
+          text: "To place your bid",
         });
         // router.push("/cart");
       })
@@ -78,9 +100,8 @@ export default function page({ params }) {
   return (
     <>
       <div
-        className={`${
-          !loading && "hidden"
-        } w-full h-full fixed  top-0 left-0 bg-white opacity-75 z-50`}
+        className={`${!loading && "hidden"
+          } w-full h-full fixed  top-0 left-0 bg-white opacity-75 z-50`}
       >
         <span className="text-blue-500 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0">
           <FontAwesomeIcon icon={faCircleNotch} spin size="5x" color="blue" />
@@ -89,14 +110,14 @@ export default function page({ params }) {
 
       <NavBar />
 
-      <section class="md:py-20 py-5">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap -mx-4 mb-24">
+      <section className="md:py-20 py-5">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap -mx-4 mb-24">
             <div className="w-full md:w-1/2 px-4 mb-2 md:mb-0">
-              <div className="relative mb-10 md:h-[564px] h-64 bg-white">
+              <div className="relative mb-10 md:h-[564px] h-24 bg-white">
                 <Image
-                  class=" transition ease-in-out  duration-150 mx-auto h-64  w-full  group-hover:scale-110"
-                  src={product.image_uri}
+                  className=" transition ease-in-out  duration-150 mx-auto h-24  w-full  group-hover:scale-110"
+                  src={product.product_uri}
                   fill
                   objectFit="contain"
                   alt="product"
@@ -104,19 +125,54 @@ export default function page({ params }) {
               </div>
             </div>
 
-            <div class="w-full md:w-1/2 px-4">
-              <div class="lg:pl-20">
-                <div class="mb-10 pb-10 border-b">
-                  <h2 class="mt-2 mb-6 max-w-xl text-3xl md:text-6xl font-bold font-heading">
-                    {product.name}
+            <div className="w-full md:w-1/2 px-4">
+              {iframeUrl && (
+                <iframe src={iframeUrl} title="Complete payment" width="100%" height="400px" />
+              )}
+              <div className="lg:pl-20">
+                <div className="mb-10 pb-10 border-b">
+                  <h2 className="mt-2 mb-6 max-w-xl text-3xl md:text-6xl font-bold font-heading">
+                    {product.auction_name}
                   </h2>
-                  <div class="mb-8"></div>
-                  <p class="inline-block mb-8 text-2xl font-bold font-heading text-blue-300">
-                    UGX <span> {product.cost}</span>
+                  <div className="mb-8"></div>
+                  <p className="inline-block mb-8 text-2xl font-bold font-heading text-blue-300">
+                    UGX <span> {product.product_price}</span>
                   </p>
-                  <p class="max-w-md text-gray-500">{product.description}</p>
+                  <p className="max-w-md text-gray-500">{product.product_description}</p>
+                  <form onSubmit={bidProduct}>
+                    <div className="flex flex-col items-start space-y-2 mt-6 w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
+                      <label className="text-lg font-medium text-gray-500">Enter your name</label>
+                      <input className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex flex-col items-start space-y-2 mt-6 w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
+                      <label className="text-lg font-medium text-gray-500">Enter Phone number</label>
+                      <input className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your phone number"
+                        value={phoneNumber}
+                        onChange={(e) => setTelephone(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex flex-col items-start space-y-2 mt-6 w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
+                      <label className="text-lg font-medium text-gray-500">Enter Bid Amount</label>
+                      <input className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your bid"
+                        value={bidamount}
+                        onChange={(e) => setBidAmount(e.target.value)}
+                      />
+                    </div>
+                    <div class="flex items-center mt-6">
+                      <input type="checkbox" id="terms" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                      <label for="terms" class="ml-2 block text-sm text-gray-900">
+                        I agree to the <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">terms and conditions</a>
+                      </label>
+                    </div>
+                    <div className="items-center justify-center mt-6">
+                      <button type="submit" className="flex items-center justify-center bg-yellow-500 text-white p-2 rounded-md">Bid now</button>
+                    </div>
+                  </form>
                 </div>
-                <div class="flex mb-12">
+                {/* <div class="flex mb-12">
                   <div class="mr-6">
                     <span class="block mb-4 font-bold font-heading text-gray-400 uppercase">
                       QTY
@@ -188,22 +244,37 @@ export default function page({ params }) {
                       <option value="3">Large</option>
                     </select>
                   </div>
+                </div> */}
+                <div className="flex flex-row items-center justify-center w-full md:w-1/2 px-4 gap-6 mb-6">
+                  {/* <div className="items-center justify-center">
+                    <button class="flex items-center justify-center bg-yellow-500 text-white p-2 rounded-md">Bid now</button>
+                  </div> */}
+                  {/* <div className="items-center justify-center">
+                    <button class="flex items-center justify-center bg-yellow-500 text-white p-2 rounded-md">Buy now</button>
+                  </div> */}
                 </div>
-                <div class="flex flex-wrap -mx-4 mb-14 items-center">
+                {/* <div class="flex flex-row flex-wrap -mx-4 mb-6 items-center">
                   <div class="w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
-                    {/* <button
+                    <button
                       class="block bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200"
-                      onClick={bidProduct}
+                      // onClick={bidProduct}
+                    
                     >
                       Bid Product
-                    </button> */}
-
+                    </button>
                     <Link
                       class="block bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200"
                       href="/checkout"
                     >
                       Bid Product
                     </Link>
+                    <button class="flex items-center justify-center mt-6 bg-yellow-500 text-white p-2 rounded-md">Buy now</button>
+
+                  </div>
+                  <div class="w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
+                    
+                    <button class="flex items-center justify-center mt-6 bg-yellow-500 text-white p-2 rounded-md">Bid now</button>
+
                   </div>
                   <div class="w-full xl:w-1/3 px-4">
                     <a
@@ -246,19 +317,19 @@ export default function page({ params }) {
                       </svg>
                     </a>
                   </div>
-                </div>
-                <div class="flex items-center">
-                  <span class="mr-8 text-gray-500 font-bold font-heading uppercase">
+                </div> */}
+                <div className="flex items-center mt-12">
+                  <span className="mr-8 text-gray-500 font-bold font-heading uppercase">
                     SHARE IT
                   </span>
 
-                  <a class="mr-1 w-8 h-8" href="#">
+                  <a className="mr-1 w-8 h-8" href="#">
                     <img src="/facebook-white-circle.svg" alt="" />
                   </a>
-                  <a class="mr-1 w-8 h-8" href="#">
+                  <a className="mr-1 w-8 h-8" href="#">
                     <img src="/instagram-circle.svg" alt="" />
                   </a>
-                  <a class="w-8 h-8" href="#">
+                  <a className="w-8 h-8" href="#">
                     <img src="/twitter-circle.svg" alt="" />
                   </a>
                 </div>
@@ -266,34 +337,34 @@ export default function page({ params }) {
             </div>
           </div>
           <div>
-            <ul class="flex flex-wrap mb-16 border-b-2">
-              <li class="w-1/2 md:w-auto">
+            <ul className="flex flex-wrap mb-16 border-b-2">
+              <li className="w-1/2 md:w-auto">
                 <a
-                  class="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl"
+                  className="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl"
                   href="#"
                 >
                   Description
                 </a>
               </li>
-              <li class="w-1/2 md:w-auto">
+              <li className="w-1/2 md:w-auto">
                 <a
-                  class="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
+                  className="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
                   href="#"
                 >
                   Customer reviews
                 </a>
               </li>
-              <li class="w-1/2 md:w-auto">
+              <li className="w-1/2 md:w-auto">
                 <a
-                  class="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
+                  className="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
                   href="#"
                 >
                   Shipping &amp; returns
                 </a>
               </li>
-              <li class="w-1/2 md:w-auto">
+              <li className="w-1/2 md:w-auto">
                 <a
-                  class="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
+                  className="inline-block py-6 px-10 text-gray-500 font-bold font-heading"
                   href="#"
                 >
                   Brand
@@ -301,7 +372,7 @@ export default function page({ params }) {
               </li>
             </ul>
 
-            <p class="max-w-2xl text-gray-500">{product.description}</p>
+            <p className="max-w-2xl text-gray-500">{product.description}</p>
           </div>
         </div>
       </section>
