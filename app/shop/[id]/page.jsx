@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 export default function page({ params }) {
-  // console.log("Paams uid",params.id);
+  //  console.log("Params uid",params.id);
 
   const [product, setProduct] = useState([]);
 
@@ -28,13 +28,14 @@ export default function page({ params }) {
   const [phoneNumber, setTelephone] = useState("");
   const [bidamount, setBidAmount] = useState("");
   const [name, setName] = useState("");
+  const [mtn_airtel, setMtnAirtel] = useState("");
   const auction_id = params.id
 
-  const [iframeUrl, setIframeUrl] = useState('');
+  // const [iframeUrl, setIframeUrl] = useState('');
 
-  useEffect(() => {
-    setTelephone(localStorage.getItem("userBidMobile"));
-  }, []);
+  // useEffect(() => {
+  //   setTelephone(localStorage.getItem("userBidMobile"));
+  // }, []);
 
   useEffect(() => {
     Axios.post(
@@ -52,49 +53,63 @@ export default function page({ params }) {
       });
   }, []);
 
-  const bidProduct = (e) => {
+const bidProduct = async (e) => {
     e.preventDefault();
 
     const termsCheckbox = document.getElementById('terms');
     if (!termsCheckbox.checked) {
       MySwal.fire({
-        position: "center",
-        icon: "error",
-        title: "Error",
-        text: "You must agree to the terms and conditions to proceed.",
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: 'You must agree to the terms and conditions to proceed.',
+      });
+      return;
+    }
+
+    if (!name || !phoneNumber || !bidamount || !mtn_airtel) {
+      MySwal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: 'All fields are required.',
       });
       return;
     }
 
     setLoading(true);
 
-    Axios.post(
-      "https://us-central1-bidleo-398811.cloudfunctions.net/make_payment_bid",
-      {
-        auction_id: auction_id,
-        phoneNumber: phoneNumber,
-        bidamount: bidamount,
-        name: name
-      }
-    )
-      .then((response) => {
+    try {
+      const response = await Axios.post(
+        'https://us-central1-bidleo-398811.cloudfunctions.net/make_payment_bid',
+        {
+          auction_id,
+          phoneNumber,
+          bidamount,
+          name,
+          mtn_airtel,
+        }
+      );
 
-        console.log("Adding data to Bid From::", response.data);
-        setIframeUrl(response.data);
-
-        setLoading(false);
-        MySwal.fire({
-          position: "center",
-          icon: "success",
-          title: "Make payment",
-          text: "To place your bid",
-        });
-        // router.push("/cart");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setLoading(false);
+      console.log('Adding data to Bid From::', response.data);
+      setLoading(false);
+      MySwal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'To complete your bid',
+        text: 'Please enter your PIN and respond to the STK prompt on your phone.',
       });
+      router.push('/');
+    } catch (err) {
+      console.error(err.message);
+      setLoading(false);
+      MySwal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while submitting your bid. Please try again.',
+      });
+    }
   };
 
   return (
@@ -126,9 +141,16 @@ export default function page({ params }) {
             </div>
 
             <div className="w-full md:w-1/2 px-4">
-              {iframeUrl && (
-                <iframe src={iframeUrl} title="Complete payment" width="100%" height="400px" />
-              )}
+              {/* {iframeUrl && (
+                <iframe src={iframeUrl} title="Complete payment" width="100%" height="400px"
+                  style={{
+                    position: 'fixed',
+                    top: '5%',
+                    left: '5%',
+                    zIndex: 9999
+                  }}
+                />
+              )} */}
               <div className="lg:pl-20">
                 <div className="mb-10 pb-10 border-b">
                   <h2 className="mt-2 mb-6 max-w-xl text-3xl md:text-6xl font-bold font-heading">
@@ -156,10 +178,24 @@ export default function page({ params }) {
                     </div>
                     <div className="flex flex-col items-start space-y-2 mt-6 w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
                       <label className="text-lg font-medium text-gray-500">Enter Bid Amount</label>
-                      <input className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your bid"
+                      <input className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Minmum bid Amount is 500"
                         value={bidamount}
                         onChange={(e) => setBidAmount(e.target.value)}
                       />
+                    </div>
+                    <div className="flex flex-col items-start space-y-2 mt-6 w-full xl:w-2/3 px-4 mb-4 xl:mb-0">
+                    <label className="text-lg font-medium text-gray-500">Select Payment Method</label>
+                    <div className="w-full">
+                      <select
+                        className="px-8 py-3 bg-gray-100 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        value={mtn_airtel}
+                        onChange={(e) => setMtnAirtel(e.target.value)}
+                      >
+                        <option value="">Select Payment Method</option>
+                        <option value="mtn">MTN</option>
+                        <option value="airtel">Airtel</option>
+                      </select>
+                    </div>
                     </div>
                     <div class="flex items-center mt-6">
                       <input type="checkbox" id="terms" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />

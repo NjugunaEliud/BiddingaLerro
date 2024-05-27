@@ -3,6 +3,7 @@ import Banner from "./components/Banner";
 import BidProduct from "./components/BidProduct";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Header2 from "./components/Header2";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Top5Unique from "./components/Top5Unique";
